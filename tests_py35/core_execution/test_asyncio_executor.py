@@ -2,7 +2,7 @@
 import pytest
 import asyncio
 import functools
-from graphql.error import format_error
+from graphql.error import format_error, GraphQLError
 from graphql.execution import execute
 from graphql.language.parser import parse
 from graphql.execution.executors.asyncio import AsyncioExecutor
@@ -84,7 +84,7 @@ def test_asyncio_py35_executor_with_error():
 
     async def resolver_2(context, *_):
         await asyncio.sleep(0.003)
-        raise Exception("resolver_2 failed!")
+        raise GraphQLError("resolver_2 failed!")
 
     Type = GraphQLObjectType(
         "Type",
