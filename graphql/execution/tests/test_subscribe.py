@@ -14,6 +14,7 @@ from graphql import (
     graphql,
     subscribe,
 )
+from graphql.error import GraphQLError
 
 # Necessary for static type checking
 if False:  # flake8: noqa
@@ -142,6 +143,7 @@ def create_subscription(
                 )
             ]
 
+        @staticmethod
         def importantEmail():
             return stream
 
@@ -269,7 +271,7 @@ def test_throws_an_error_if_subscribe_does_not_return_an_iterator():
 
 def test_returns_an_error_if_subscribe_function_returns_error():
     # type: () -> None
-    exc = Exception("Throw!")
+    exc = GraphQLError("Throw!")
 
     def thrower(root, info):
         # type: (Optional[Any], ResolveInfo) -> None
